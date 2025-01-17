@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/parallax.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'actors/knight.dart';
 
-class HieronQuest extends FlameGame {
+class HieronQuest extends FlameGame with TapDetector {
   late KnightPlayer _knight;
 
   @override
@@ -36,9 +37,7 @@ class HieronQuest extends FlameGame {
         repeat: ImageRepeat.repeat,
         velocityMultiplierDelta: Vector2(2, 0));
 
-    await images.loadAll([
-      'knight_run_spritesheet.png',
-    ]);
+    await images.loadAll(['knight_run_spritesheet.png']);
 
     camera.viewfinder.anchor = Anchor.topLeft;
 
@@ -47,5 +46,10 @@ class HieronQuest extends FlameGame {
     );
     world.add(parallax);
     world.add(_knight);
+  }
+
+  @override
+  void onTapDown(TapDownInfo info) {
+    _knight.jump();
   }
 }
