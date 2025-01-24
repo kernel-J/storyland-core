@@ -4,11 +4,14 @@ import 'package:flame/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
+import 'package:storyland/mini_games/runner/actors/enemy.dart';
+import 'package:storyland/mini_games/runner/enemy_manager.dart';
 
 import 'actors/knight.dart';
 
 class HieronQuest extends FlameGame with TapDetector {
   late KnightPlayer _knight;
+  late EnemyManager _enemyManager;
 
   @override
   Future<void> onLoad() async {
@@ -36,15 +39,22 @@ class HieronQuest extends FlameGame with TapDetector {
         baseVelocity: Vector2(1, 0),
         repeat: ImageRepeat.repeat,
         velocityMultiplierDelta: Vector2(2, 0));
+    world.add(parallax);
 
-    await images.loadAll(['knight_run_spritesheet.png']);
+    await images.loadAll([
+      'knight_run_spritesheet.png',
+      'enemies/demonic_bunny_running.png',
+      'enemies/fantasy_bunny_running.png',
+      'enemies/white_bunny_idle.png'
+    ]);
+
+    _enemyManager = EnemyManager();
+    world.add(_enemyManager);
 
     camera.viewfinder.anchor = Anchor.topLeft;
-
     _knight = KnightPlayer(
       position: Vector2(128, canvasSize.y - 70),
     );
-    world.add(parallax);
     world.add(_knight);
   }
 
