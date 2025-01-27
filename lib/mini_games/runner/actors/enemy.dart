@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/collisions.dart';
 
 import '../hieron_quest.dart';
 
@@ -66,6 +67,9 @@ class Enemy extends SpriteAnimationComponent
 
     y = game.canvasSize.g - 100;
     x = game.canvasSize.r - width;
+
+    add(CircleHitbox.relative(0.5,
+        parentSize: size, position: Vector2(size.r / 2 - 20, size.g / 2)));
   }
 
   @override
