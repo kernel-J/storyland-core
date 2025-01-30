@@ -6,7 +6,9 @@ import '../actors/knight.dart';
 
 class Item extends SpriteAnimationComponent
     with CollisionCallbacks, HasGameReference<HieronQuest> {
-  Item() : super(size: Vector2(30, 30));
+  Item({
+    required super.position,
+  }) : super(size: Vector2(30, 30));
 
   final Vector2 velocity = Vector2(100, 0);
 
@@ -20,9 +22,6 @@ class Item extends SpriteAnimationComponent
         stepTime: 0.12,
       ),
     );
-
-    y = game.canvasSize.g - 100;
-    x = game.canvasSize.r - width;
 
     add(CircleHitbox.relative(0.5,
         parentSize: size, position: Vector2(size.r / 2 - 20, size.g / 2)));
